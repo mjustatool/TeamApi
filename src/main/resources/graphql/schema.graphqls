@@ -1,0 +1,15 @@
+scalar Date
+type Query {
+    teamList:[Team]
+}
+
+type Team{
+    id:Int
+    teamName:String
+    classement:Int
+    macthedPlayed:Int
+    wins:Int
+    matchDraw:Int
+    defeat:Int
+    points:Int
+}
