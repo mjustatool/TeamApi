@@ -2,7 +2,12 @@ package com.api.team.web;
 
 
 import com.api.team.dto.TeamDto;
+import com.api.team.entity.Team;
+import com.api.team.service.TeamHandleService;
 import com.api.team.service.TeamService;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,22 +21,14 @@ import java.util.List;
 public class TeamResource {
 
     private final TeamService teamService;
-
-    public TeamResource(TeamService teamService) {
+    private final TeamHandleService teamHandleService;
+    public TeamResource(TeamService teamService, TeamHandleService teamHandleService) {
         this.teamService = teamService;
+        this.teamHandleService = teamHandleService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<TeamDto>> getTeams() throws IOException {
-        return ResponseEntity.ok(teamService.getAllTeams());
-    }
-
-
-    public void instructions(){
-        // jib mn graphql databse
-        // ila kant database khawiya radi t3merha o dir createdAtt date ta3 db
-        // ila kant database 3amra radi tchof createdAt wach fat 24sa3a 3la la date diyal dd
-        // ila ahh radi temse7 kolchi o inserer data jdida
-        // ila la radi treje3 dakchi li kayn fl database
+    @QueryMapping
+    public List<Team> getDataInserted(@Argument String comp)  throws IOException {
+        return teamHandleService.getTeamsDB(comp);
     }
 }

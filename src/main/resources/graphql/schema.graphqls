@@ -1,13 +1,13 @@
 scalar Date
 type Query {
-    teamList:[Team]
+    getDataInserted(comp:String):[Team]
 }
 
 type Team{
     id:Int
     teamName:String
-    classement:Int
-    macthedPlayed:Int
+    classment:Int
+    matchPlayed:Int
     wins:Int
     matchDraw:Int
     defeat:Int

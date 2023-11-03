@@ -28,13 +28,13 @@ import java.util.List;
 @Slf4j
 public class TeamService  {
     private final String baseUrl = "http://localhost:9090";
-    private final String urlTemms = "/apiMatch?league=premier_league";
+    private final String urlTemms = "/apiMatch?league=";
 
     @Autowired
     private OkHttpClient client;
-    public List<TeamDto> getAllTeams() throws IOException {
+    public List<TeamDto> getAllTeams(String comp) throws IOException {
         Request request = new Request.Builder()
-                .url(baseUrl+urlTemms)
+                .url(baseUrl+urlTemms + comp)
                 .build();
         List<TeamDto> teamDtos = new ArrayList<>();
         Response response = client.newCall(request).execute();
