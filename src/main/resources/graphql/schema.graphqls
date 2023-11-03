@@ -1,6 +1,7 @@
 scalar Date
 type Query {
     getDataInserted(comp:String):[Team]
+    getTeamsByChoice(comp:String):[Team]
 }
 
 type Team{

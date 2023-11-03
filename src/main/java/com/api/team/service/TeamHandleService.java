@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,5 +51,23 @@ public class TeamHandleService {
             teamRpository.saveAll(newTeamsList);
             return newTeamsList;
         }
+    }
+    public List<Team> getTeamsByChoice(String comp) throws IOException {
+        List<Team> newTeamsList = new ArrayList<>();
+        List<Team> teams = teamRpository.findAll();
+        if(!teams.isEmpty()){
+            // hna 3amra
+            Team team = teams.get(0);
+            Instant ins = team.getCreatedAt().plus(1, ChronoUnit.DAYS); // hadi ka tched la date fach derty instert o ka tzied 3liha nhar
+            teamRpository.deleteAll();
+            teamRpository.flush();
+        }else {
+
+            List<TeamDto> teamDtos = teamService.getAllTeams(comp);
+            newTeamsList = teamDtos.stream().map((teamMapper::mapToEntity)).toList();
+            teamRpository.saveAll(newTeamsList);
+
+        }
+        return newTeamsList;
     }
 }
